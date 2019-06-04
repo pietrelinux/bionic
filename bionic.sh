@@ -14,15 +14,35 @@ dpkg -i *.deb
 debootstrap --arch=arm64 --foreign bionic /bionic
 
 sudo mount -o bind /dev /bionic/dev && sudo mount -o bind /dev/pts /bionic/dev/pts && sudo mount -t sysfs sys /bionic/sys && sudo mount -t proc proc /bionic/proc
+> config.sh
+cat <<+ >> config.sh
+#!/bin/sh
+
+/debootstrap/debootstrap --second-stage
 export LANG=C
+echo "deb http://ports.ubuntu.com/ bionic main restricted universe multiverse" > /etc/apt/sources.list
+echo "deb http://ports.ubuntu.com/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb http://ports.ubuntu.com/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb http://ports.ubuntu.com/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
+echo "Europe/Berlin" > /etc/timezone
+echo "bionic" >> /etc/hostname
 locale-gen es_ES.UTF-8
 export LC_ALL="es_ES.UTF-8"
 update-locale LC_ALL=es_ES.UTF-8 LANG=es_ES.UTF-8 LC_MESSAGES=POSIX
 dpkg-reconfigure locales
-echo "deb http://ports.ubuntu.com/ bionic main restricted universe multiverse" > /etc/apt/sources.list
+locale-gen es_ES.UTF-8
+adduser bionic
+addgroup bionic sudo 
+addgroup bionic adm
+addgrouo bioni users
+addgroup bionic video
++
 
-echo "deb http://ports.ubuntu.com/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list
-echo "deb http://ports.ubuntu.com/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list
-echo "deb http://ports.ubuntu.com/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list
+chmod +x  /home/sunxi/config.sh
+cp config.sh /bionic/home
+chroot /bionic /bin/sh -i ./home/config.sh && exit 
+
+
 apt update
 apt-get upgrade -y
