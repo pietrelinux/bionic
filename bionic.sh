@@ -39,7 +39,7 @@ addgrouo bioni users
 addgroup bionic video
 +
 
-chmod +x  /home/sunxi/config.sh
+chmod +x  config.sh
 cp config.sh /bionic/home
 chroot /bionic /bin/sh -i ./home/config.sh && exit 
 
