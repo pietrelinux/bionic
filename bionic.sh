@@ -47,7 +47,7 @@ update-locale LC_ALL=es_ES.UTF-8 LANG=es_ES.UTF-8 LC_MESSAGES=POSIX
 dpkg-reconfigure locales
 dpkg-reconfigure -f noninteractive tzdata
 apt-get upgrade -y
-sudo apt-get install wireless-tools iw ubuntu-desktop -y
+sudo apt-get install wireless-tools iw xubuntu-desktop lxdm-y
 rm -f /var/lib/dpkg/info/udev.post*
 rm -f /var/lib/dpkg/info/udev.pre*
 apt-get -f install
