@@ -1,6 +1,6 @@
 #!/bin/sh
-sudo apt-get install debootstrap libc6-dev-arm64-cross gcc-aarch64-linux-gnu -y
-qemu-aarch64mkdir /bionic
+sudo apt-get install debootstrap libc6-dev-arm64-cross gcc-aarch64-linux-gnu qemu-aarch64 -y
+mkdir /bionic
 dd if=/dev/zero of=bionic.img bs=1 count=0 seek=4000M
 mkfs.btrfs -F bionic.img
 chmod 777 bionic.img
@@ -8,7 +8,7 @@ mount -o loop bionic.img /bionic
 debootstrap --arch=arm64 --foreign bionic /bionic
 sudo mount -o bind /dev /bionic/dev && sudo mount -o bind /dev/pts /bionic/dev/pts && sudo mount -t sysfs sys /bionic/sys && sudo mount -t proc proc /bionic/proc
 cp /usr/bin/qemu-arm-static /bionic/usr/bin
-cp /usr/bin/qemu-system-common /bionic/usr/bin
+cp /usr/bin/qemu-aarch64-static /bionic/usr/bin
 cp /etc/resolv.conf /bionic/etc
 > /home/config.sh
 cat <<+ >> /home/config.sh
@@ -61,7 +61,7 @@ addgroup bionic users
 +
 chmod +x  /home/config.sh
 sudo cp  /home/config.sh /bionic/home
-chroot /bionic /usr/bin/qemu-system-arm /bin/sh -i ./home/config.sh
+chroot /bionic /usr/bin/qemu-aarch64-static /bin/sh -i ./home/config.sh
 rm /home/config.sh
 sudo umount /bionic/dev/pts
 sleep 3
