@@ -2,7 +2,7 @@
 sudo apt-get install debootstrap libc6-dev-arm64-cross gcc-aarch64-linux-gnu qemu-aarch64 btrfs-tools -y
 mkdir /bionic
 dd if=/dev/zero of=bionic.img bs=1 count=0 seek=4000M
-mkfs.btrfs -F bionic.img
+mkfs.btrfs bionic.img
 chmod 777 bionic.img
 mount -o loop bionic.img /bionic
 debootstrap --arch=arm64 --foreign bionic /bionic
