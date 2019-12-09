@@ -1,5 +1,5 @@
 #!/bin/sh
-sudo apt-get install debootstrap libc6-dev-arm64-cross gcc-aarch64-linux-gnu 
+sudo apt-get install debootstrap libc6-dev-arm64-cross gcc-aarch64-linux-gnu -y
 qemu-aarch64mkdir /bionic
 dd if=/dev/zero of=bionic.img bs=1 count=0 seek=4000M
 mkfs.btrfs -F bionic.img
