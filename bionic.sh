@@ -34,22 +34,16 @@ iface lo inet loopback" >> /etc/network/interfaces
 echo "/dev/mmcblk0p1 /	   ext4	    errors=remount-ro,noatime,nodiratime 0 1" >> /etc/fstab
 echo "tmpfs    /tmp        tmpfs    nodev,nosuid,mode=1777 0 0" >> /etc/fstab
 echo "tmpfs    /var/tmp    tmpfs    defaults    0 0" >> /etc/fstab	
-cat <<END > /etc/apt/apt.conf.d/71-no-recommends
-APT::Install-Recommends "0";
-APT::Install-Suggests "0";
-END
 apt-get update
 echo "Reconfigurando parametros locales"
-sleep 1
 locale-gen es_ES.UTF-8
 export LC_ALL="es_ES.UTF-8"
 update-locale LC_ALL=es_ES.UTF-8 LANG=es_ES.UTF-8 LC_MESSAGES=POSIX
 dpkg-reconfigure locales
 dpkg-reconfigure -f noninteractive tzdata
-apt-get upgrade -y
+apt-get upgrade -y 
+hostnamectl set-hostname bionic
 sudo apt-get install wireless-tools iw xubuntu-desktop lxdm-y
-rm -f /var/lib/dpkg/info/udev.post*
-rm -f /var/lib/dpkg/info/udev.pre*
 apt-get -f install
 apt-get clean
 adduser bionic
