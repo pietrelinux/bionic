@@ -43,7 +43,7 @@ dpkg-reconfigure locales
 dpkg-reconfigure -f noninteractive tzdata
 apt-get upgrade -y 
 hostnamectl set-hostname bionic
-sudo apt-get install wireless-tools iw xubuntu-desktop lxdm-y
+sudo apt-get install wireless-tools iw xubuntu-desktop lxdm -y
 apt-get -f install
 apt-get clean
 adduser bionic
